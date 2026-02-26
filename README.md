@@ -6,4 +6,4 @@ usando distintos modelos matematicos dentro de estos modelos tenemos al **Modelo
 
 ### Como entender el repositorio
 
-El repositorio esta seccionado por carpetas dentro de las cuáles se definiene códigos de ejemplo y notebooks de como usar y entender cada **modelo, aparte de manhattan**, debido a que manhattan tendra otros modelos para que realice un calculo preciso. 
+El repositorio esta seccionado por carpetas dentro de las cuáles se definiene códigos de ejemplo y notebooks de como usar y entender cada **modelo, aparte de manhattan**, debido a que manhattan tendra otros modelos para que realice un calculo preciso.
