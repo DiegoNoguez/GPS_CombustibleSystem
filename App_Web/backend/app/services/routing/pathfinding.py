@@ -1,8 +1,11 @@
+from app.services.routing.cost_engine import CostEngine
 import heapq
 from math import radians, sin, cos, sqrt, atan2
 
 
 class AStar:
+    def __init__(self):
+        self.cost_engine = CostEngine()
 
     def haversine(
         self,
@@ -68,7 +71,8 @@ class AStar:
         self,
         graph,
         start,
-        goal
+        goal,
+         modo="particular"
     ):
 
         open_set = []
@@ -131,9 +135,9 @@ class AStar:
                     )
                 )
 
-                distance = edge.get(
-                    "length",
-                    1
+                distance = self.cost_engine.get_cost(
+                    edge,
+                    modo
                 )
 
                 tentative_g = (
@@ -169,3 +173,4 @@ class AStar:
                     )
 
         return None
+    
