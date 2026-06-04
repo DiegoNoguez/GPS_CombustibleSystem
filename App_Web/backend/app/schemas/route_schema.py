@@ -1,6 +1,18 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, conlist
 
-# Clase para validacion de datos en numeros
+
 class RouteRequest(BaseModel):
-    origen: list[float]
-    destino: list[float]
+
+    origen: conlist(
+        float,
+        min_length=2,
+        max_length=2
+    )
+
+    destino: conlist(
+        float,
+        min_length=2,
+        max_length=2
+    )
+
+    modo: str = "particular"

@@ -10,8 +10,10 @@ def mensaje():
     return [{"message":"Api funcionando sin errores"}]
 
 @router.post("/ruta")
-def obtener_ruta(data: RouteRequest):
-    origen = data.get.origen
-    destino = data.get.destino
-    resultado = service.calcular_ruta(origen,destino)
+async def obtener_ruta(data: RouteRequest):
+    resultado = service.calcular_ruta(
+        data.origen,
+        data.destino,
+        data.modo
+    )
     return resultado
