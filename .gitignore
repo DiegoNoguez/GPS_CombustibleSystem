@@ -1,1 +1,4 @@
 notebooks_modelo/.pruebas
+App_Web/backend/.envGps
+App_Web/backend/__pycache__
+App_Web/backend/api/__pycache__
