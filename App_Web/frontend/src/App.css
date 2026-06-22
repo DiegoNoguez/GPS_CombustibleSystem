@@ -496,3 +496,413 @@
         max-height: calc(100vh - 20px);
     }
 }
+/* SEARCH CONTAINER */
+.search-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.search-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.search-icon.origen {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+}
+
+.search-icon.destino {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+}
+
+/* Input del geocoder */
+.search-field input {
+    width: 100%;
+    padding: 12px 14px 12px 46px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(167, 139, 250, 0.3);
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.search-field input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 400;
+}
+
+.search-field input:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(167, 139, 250, 0.5);
+}
+
+.search-field input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #a78bfa;
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.2);
+}
+
+/* Dropdown de resultados - MEJORADA VISIBILIDAD */
+.search-field ul,
+.search-field .geocoder-results,
+.search-field [class*="results"],
+.search-field [class*="dropdown"],
+.search-field .suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 6px;
+    background: rgba(15, 15, 25, 0.98);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(167, 139, 250, 0.4);
+    border-radius: 12px;
+    max-height: 250px;
+    overflow-y: auto;
+    z-index: 2000;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(139, 92, 246, 0.1);
+    padding: 6px;
+}
+
+/* Items del dropdown */
+.search-field li,
+.search-field [class*="result-item"],
+.search-field [class*="option"],
+.search-field .suggestion-item {
+    padding: 12px 14px;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    list-style: none;
+    background: transparent;
+    border: none;
+    text-align: left;
+    width: 100%;
+    margin-bottom: 2px;
+}
+
+.search-field li:hover,
+.search-field [class*="result-item"]:hover,
+.search-field [class*="option"]:hover,
+.search-field .suggestion-item:hover {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(236, 72, 153, 0.3));
+    color: white;
+    transform: translateX(2px);
+}
+
+/* Item seleccionado/activo */
+.search-field li.active,
+.search-field li[aria-selected="true"],
+.search-field [class*="result-item"].active,
+.search-field [class*="option"].active {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.5), rgba(236, 72, 153, 0.5));
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+}
+
+/* Evitar texto blanco sobre fondo blanco */
+.search-field li *,
+.search-field [class*="result-item"] *,
+.search-field [class*="option"] * {
+    color: rgba(255, 255, 255, 0.95) !important;
+    background: transparent !important;
+}
+
+/* Separador entre items */
+.search-field li:not(:last-child),
+.search-field [class*="result-item"]:not(:last-child) {
+    border-bottom: 1px solid rgba(167, 139, 250, 0.1);
+    margin-bottom: 4px;
+    padding-bottom: 12px;
+}
+
+/* INSTRUCTIONS HINT */
+.instructions-hint {
+    text-align: center;
+    margin-bottom: 14px;
+    opacity: 0.6;
+}
+
+.instructions-hint small {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+    letter-spacing: 0.3px;
+}
+
+/* Scrollbar para dropdown del geocoder */
+.search-field ul::-webkit-scrollbar,
+.search-field [class*="results"]::-webkit-scrollbar,
+.search-field .suggestions::-webkit-scrollbar {
+    width: 6px;
+}
+
+.search-field ul::-webkit-scrollbar-track,
+.search-field [class*="results"]::-webkit-scrollbar-track {
+    background: rgba(139, 92, 246, 0.1);
+    border-radius: 3px;
+}
+
+.search-field ul::-webkit-scrollbar-thumb,
+.search-field [class*="results"]::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #8b5cf6, #ec4899);
+    border-radius: 3px;
+}
+
+.search-field ul::-webkit-scrollbar-thumb:hover,
+.search-field [class*="results"]::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #a78bfa, #f472b6);
+}
+
+/* GEOCODER */
+.geocoder {
+    position: relative;
+    width: 100%;
+}
+
+.geocoder-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 14px 12px 44px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(167, 139, 250, 0.3);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.geocoder-input-wrapper:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(167, 139, 250, 0.5);
+}
+
+.geocoder-input-wrapper:focus-within {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #a78bfa;
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.2);
+}
+
+/* Icono MapPin dentro del wrapper */
+.geocoder-input-wrapper > svg:first-child {
+    position: absolute;
+    left: 14px;
+    color: #a78bfa;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 4px rgba(167, 139, 250, 0.4));
+}
+
+/* Loader dentro del wrapper */
+.geocoder-input-wrapper > svg:last-child,
+.geocoder-input-wrapper .spin {
+    margin-left: auto;
+    color: #a78bfa;
+    flex-shrink: 0;
+}
+
+.geocoder-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    width: 100%;
+    padding: 0;
+    min-width: 0;
+}
+
+.geocoder-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 400;
+}
+
+/* RESULTS DROPDOWN - ALTA VISIBILIDAD */
+.geocoder-results {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background: rgba(10, 10, 20, 0.98);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(167, 139, 250, 0.4);
+    border-radius: 12px;
+    max-height: 280px;
+    overflow-y: auto;
+    z-index: 2000;
+    box-shadow: 
+        0 15px 40px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(139, 92, 246, 0.15);
+    padding: 6px;
+    animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.geocoder-item {
+    display: block;
+    width: 100%;
+    padding: 12px 14px;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 13px;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    margin-bottom: 2px;
+    line-height: 1.4;
+    word-wrap: break-word;
+    font-family: inherit;
+}
+
+.geocoder-item:hover {
+    background: linear-gradient(
+        135deg,
+        rgba(139, 92, 246, 0.35),
+        rgba(236, 72, 153, 0.35)
+    );
+    color: white;
+    transform: translateX(3px);
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.2);
+}
+
+.geocoder-item:active {
+    transform: translateX(3px) scale(0.99);
+}
+
+.geocoder-item:not(:last-child) {
+    border-bottom: 1px solid rgba(167, 139, 250, 0.1);
+    padding-bottom: 12px;
+    margin-bottom: 4px;
+}
+
+/* Scrollbar del dropdown */
+.geocoder-results::-webkit-scrollbar {
+    width: 6px;
+}
+
+.geocoder-results::-webkit-scrollbar-track {
+    background: rgba(139, 92, 246, 0.1);
+    border-radius: 3px;
+}
+
+.geocoder-results::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #8b5cf6, #ec4899);
+    border-radius: 3px;
+}
+
+.geocoder-results::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #a78bfa, #f472b6);
+}
+
+/* PORTAL DEL DROPDOWN */
+.geocoder-results-portal {
+    position: absolute !important;
+    z-index: 99999 !important;
+    background: rgba(10, 10, 20, 0.98) !important;
+    backdrop-filter: blur(25px) !important;
+    -webkit-backdrop-filter: blur(25px) !important;
+    border: 1px solid rgba(167, 139, 250, 0.4) !important;
+    border-radius: 12px !important;
+    max-height: 280px !important;
+    overflow-y: auto !important;
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(139, 92, 246, 0.15) !important;
+    padding: 6px !important;
+    animation: slideDown 0.2s ease !important;
+    pointer-events: auto !important;
+}
+
+.geocoder-results-portal .geocoder-item {
+    display: block;
+    width: 100%;
+    padding: 12px 14px;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 13px;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    margin-bottom: 2px;
+    line-height: 1.4;
+    word-wrap: break-word;
+    font-family: inherit;
+}
+
+.geocoder-results-portal .geocoder-item:hover {
+    background: linear-gradient(
+        135deg,
+        rgba(139, 92, 246, 0.35),
+        rgba(236, 72, 153, 0.35)
+    );
+    color: white;
+    transform: translateX(3px);
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.2);
+}
+
+.geocoder-results-portal .geocoder-item:not(:last-child) {
+    border-bottom: 1px solid rgba(167, 139, 250, 0.1);
+    padding-bottom: 12px;
+    margin-bottom: 4px;
+}
+
+.geocoder-results-portal::-webkit-scrollbar {
+    width: 6px;
+}
+
+.geocoder-results-portal::-webkit-scrollbar-track {
+    background: rgba(139, 92, 246, 0.1);
+    border-radius: 3px;
+}
+
+.geocoder-results-portal::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #8b5cf6, #ec4899);
+    border-radius: 3px;
+}
