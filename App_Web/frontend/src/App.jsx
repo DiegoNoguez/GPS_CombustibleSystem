@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import MapView from "./MapView";
+import Geocoder from "./components/Geocoder";
 import { crearRuta, obtenerEstado } from "./services/api";
 import {
     Navigation,
@@ -37,6 +38,7 @@ function App() {
     const [modo, setModo] = useState("particular");
     const [infoRuta, setInfoRuta] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [geocoderKey, setGeocoderKey] = useState(0);
     const pollingRef = useRef(null);
     const requestInProgress = useRef(false);
 
@@ -53,17 +55,27 @@ function App() {
             toast.error("Seleccione origen y destino");
             return;
         }
+        
+        const origenValido = Array.isArray(origen) && origen.length === 2;
+        const destinoValido = Array.isArray(destino) && destino.length === 2;
+        
+        if (!origenValido || !destinoValido) {
+            toast.error("Coordenadas inválidas");
+            return;
+        }
+        
         if (loading) return;
 
         setLoading(true);
         setRuta([]);
         setRiesgos([]);
         setInfoRuta(null);
+        setGeocoderKey((k) => k + 1);
 
         try {
             const job = await crearRuta({
-                origen,
-                destino,
+                origen: [Number(origen[0]), Number(origen[1])],
+                destino: [Number(destino[0]), Number(destino[1])],
                 modo,
                 zonas_riesgo: zonasRiesgo
             });
@@ -124,6 +136,7 @@ function App() {
         setZonasRiesgo([]);
         setModoRiesgo(false);
         setInfoRuta(null);
+        setGeocoderKey((k) => k + 1);
     }
 
     const formatTiempo = (minutos) => {
@@ -160,15 +173,32 @@ function App() {
                     <h3>Smart GPS</h3>
                 </div>
 
-                <div className="instructions">
-                    <div>
-                        <MapPin size={16} />
-                        Click origen
+                <div className="search-container">
+                    <div className="search-field">
+                        <div className="search-icon origen">
+                            <MapPin size={14} />
+                        </div>
+                        <Geocoder
+                            key={`origen-${geocoderKey}`}
+                            placeholder="Buscar origen..."
+                            onSelect={setOrigen}
+                        />
                     </div>
-                    <div>
-                        <MapPin size={16} />
-                        Click destino
+
+                    <div className="search-field">
+                        <div className="search-icon destino">
+                            <MapPin size={14} />
+                        </div>
+                        <Geocoder
+                            key={`destino-${geocoderKey}`}
+                            placeholder="Buscar destino..."
+                            onSelect={setDestino}
+                        />
                     </div>
+                </div>
+
+                <div className="instructions-hint">
+                    <small>O haz click directamente en el mapa</small>
                 </div>
 
                 <select

@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000";
+const API_URL = "https://subdominio.springyblock6devdanl.dpdns.org";
 
 // crear job
 export async function crearRuta(payload) {
